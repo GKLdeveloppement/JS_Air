@@ -27,6 +27,7 @@ let res = 0
 let arrTemp = []
 let arrFinal =[]
 const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
+let separ = " "
 
 //f() utilisées
 //Number test
@@ -48,19 +49,19 @@ function isNotNumber(args){
 function separator(aDecouper, separateur){
     for (let i = 0; i < arg1.length; i++) {
         //On remplis le tableau jusqu'à arrivé au séparateur
-        arrTemp.push(arg1[i])
+        arrTemp.push(aDecouper[i])
 
-        if (arg1[i] == " "){
+        if (aDecouper[i] == separateur){
             arrFinal.push(arrTemp.join(""))
             arrTemp = []
 
         } else {
             //Sinon on va vérifier qu'on est arrivé au dernier séparateur pour ajouter le dernier mot
-            let lastIndex = arg1.lastIndexOf(" ")
+            let lastIndex = aDecouper.lastIndexOf(separateur)
             
             if (i > lastIndex) {
                 //+1 pour skipper l'espace
-                let lastWord= arg1.slice(lastIndex+1)
+                let lastWord= aDecouper.slice(lastIndex+1)
                 arrFinal.push(lastWord)
                 break
             }
@@ -83,7 +84,7 @@ if (isNotNumber(args) > 0) {
 }
 
 //Traitement
-let result = separator()
+let result = separator(arg1, separ)
 
 //Affichage résultat
 console.log(result);
