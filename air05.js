@@ -20,10 +20,13 @@ Afficher error et quitter le programme en cas de problèmes d’arguments.
 
 //Initialisation des variables
 let args = process.argv.slice(2)
+let numbers = args.slice(0, args.length-1)
 let arg1 = process.argv[2]
 let arg2 = process.argv[3]
+let operateur = args[args.length-1]
 let res = ""
-const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
+//ajout du signe + (dans les anciens exos que le signe -)
+const nbRegex = /^[-+]?[0-9]\d*(\.\d+)?$/
 
 //f() utilisées
 //Number test
@@ -31,10 +34,9 @@ function isNotNumber(args){
     let counter = 0
     for (let i = 0; i < args.length; i++) {
         if (args[i].match(nbRegex)) {
-            counter ++
-        } else {
-            
             res = true
+        } else {
+            counter ++
         }        
     }
     return counter
@@ -42,8 +44,10 @@ function isNotNumber(args){
 
 
 //Main f()
-function main(){
-
+function operationSurListe(liste, operateur){
+    //we gonna to try the map function
+    let operateResult = liste.map(x => parseInt(x) + parseInt(operateur) )
+    return operateResult.join(" ")
 }
 
 //Gestion d'erreurs
@@ -52,14 +56,14 @@ if (arg1 == undefined || arg2 == undefined) {
     return
 }
 
-//Inverse de ma f() isNumber() de l'exo précedent 
+
 if (isNotNumber(args) > 0) {
-    console.log("Ce script ne peut prendre que des lettres/mots en arguments");
+    console.log("Ce script ne peut prendre que des chiffres en arguments");
     return
 }
 
 //Traitement
-let result = 
+let result = operationSurListe(numbers, operateur)
 
 //Affichage résultat
 console.log(result);

@@ -24,9 +24,12 @@ Afficher error et quitter le programme en cas de problèmes d’arguments.
 
 //Initialisation des variables
 let args = process.argv.slice(2)
+let liste = args.slice(0, args.length-1)
+let lastItem = args[args.length-1]
 let arg1 = process.argv[2]
 let arg2 = process.argv[3]
 let res = ""
+let finalListe = []
 const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
 
 //f() utilisées
@@ -46,11 +49,31 @@ function isNotNumber(args){
 
 
 //Main f()
-function main(){
+function controleContain(liste, comparant){
+    for (let i = 0; i < liste.length; i++) {
+        let count = 0
+        let argx = liste[i]
+        for (let y = 0; y < argx.length; y++) {
+            if (argx[y] == comparant) {
+                count++
+            }
+        }
+        if (count > 0) {
+            finalListe.push(argx)
+        }
+    }
+    return finalListe.join(", ")
 
 }
 
 //Gestion d'erreurs
+
+//gérer que ça fasse qu'un seul caractère
+if (lastItem.length > 1) {
+    console.log("Le comparant qui doit être proposer ne doit contenir qu'une seule lettre, exemple : 'a'.");
+    return
+}
+
 if (arg1 == undefined || arg2 == undefined) {
     console.log("Merci d'entrer 2 arguments minimum valables");
     return
@@ -63,7 +86,7 @@ if (isNotNumber(args) > 0) {
 }
 
 //Traitement
-let result = 
+let result = controleContain(liste, lastItem)
 
 //Affichage résultat
 console.log(result);
