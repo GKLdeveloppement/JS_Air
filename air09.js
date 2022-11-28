@@ -23,6 +23,8 @@ let args = process.argv.slice(2)
 let arg1 = process.argv[2]
 let arg2 = process.argv[3]
 let res = ""
+let lastIndex = args.length -1
+
 const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
 
 //f() utilisées
@@ -33,8 +35,8 @@ function isNotNumber(args){
         if (args[i].match(nbRegex)) {
             counter ++
         } else {
-            
             res = true
+            
         }        
     }
     return counter
@@ -42,8 +44,13 @@ function isNotNumber(args){
 
 
 //Main f()
-function main(){
-
+function firstBecomeLast(arr){
+    let finalArr = []
+    for (let i = 1; i < arr.length; i++) {
+        finalArr.push(arr[i])
+    }
+    finalArr.push(arr[0])
+    return finalArr.join(", ")
 }
 
 //Gestion d'erreurs
@@ -54,12 +61,12 @@ if (arg1 == undefined || arg2 == undefined) {
 
 //Inverse de ma f() isNumber() de l'exo précedent 
 if (isNotNumber(args) > 0) {
-    console.log("Ce script ne peut prendre que des lettres/mots en arguments");
+    console.log("Ce script ne peut prendre que des chiffres en arguments");
     return
 }
 
 //Traitement
-let result = 
+let result = firstBecomeLast(args)
 
 //Affichage résultat
 console.log(result);
