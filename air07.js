@@ -23,30 +23,59 @@ Afficher error et quitter le programme en cas de problèmes d’arguments.
 
 //Initialisation des variables
 let args = process.argv.slice(2)
+let liste = args.slice(0, args.length-1)
+let lastItem = args[args.length-1]
 let arg1 = process.argv[2]
 let arg2 = process.argv[3]
 let res = ""
+let finalListe = []
 const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
 
 //f() utilisées
+
 //Number test
 function isNotNumber(args){
     let counter = 0
     for (let i = 0; i < args.length; i++) {
         if (args[i].match(nbRegex)) {
-            counter ++
-        } else {
-            
             res = true
+            
+        } else {
+            counter ++
         }        
     }
     return counter
 }
 
+//on ré-invente pas la roue (voir exo de tri épreuve eau)
+function arrSort(arr){
+    let arrSort = [...arr]
+    for (let i = 0; i < arrSort.length-1; i++) {
+        //-1 car le dernier élément sera à sa place
+
+        for (let y = 0; y < (arrSort.length -i -1); y++) {
+
+            //On vérifie si les deux sont dans l'ordre
+            //ParseInt() obligatoire sinon les dizaines ne sont correctement traités
+            if (parseInt(arrSort[y]) > parseInt(arrSort[y+1])) {
+
+                //on défini un var temporaire pour ne pas perdre la valeur qui va ensuite etre modifié
+                let temp = arrSort[y]
+                arrSort[y] = arrSort[y+1]
+                arrSort[y+1] = temp
+            }
+        }
+    }   
+    return arrSort
+}
 
 //Main f()
-function main(){
+function addNbInSortArray(arr, addedItem){
+    let finalArr = [...arr]
+    finalArr.push(addedItem)
 
+    finalArr = arrSort(finalArr)
+    return finalArr
 }
 
 //Gestion d'erreurs
@@ -57,12 +86,12 @@ if (arg1 == undefined || arg2 == undefined) {
 
 //Inverse de ma f() isNumber() de l'exo précedent 
 if (isNotNumber(args) > 0) {
-    console.log("Ce script ne peut prendre que des lettres/mots en arguments");
+    console.log("Ce script ne peut prendre que des chiffres en arguments");
     return
 }
 
 //Traitement
-let result = 
+let result = addNbInSortArray(liste, lastItem)
 
 //Affichage résultat
 console.log(result);
