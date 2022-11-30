@@ -29,7 +29,6 @@ function isNotNumber(args){
         if (args[i].match(nbRegex)) {
             counter ++
         } else {
-            
             res = true
         }        
     }
@@ -38,13 +37,21 @@ function isNotNumber(args){
 
 
 //Main f()
-function main(){
+function fileContent(file){
+    const fs = require('fs');
 
+    fs.readFile(file, 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+        return
+      }
+      console.log(data)
+    })
 }
 
 //Gestion d'erreurs
-if (arg1 == undefined || arg2 == undefined) {
-    console.log("Merci d'entrer 2 arguments minimum valables");
+if (arg1 == undefined || arg2 !== undefined) {
+    console.log("Merci d'entrer 1 arguments minimum valables");
     return
 }
 
@@ -55,7 +62,7 @@ if (isNotNumber(args) > 0) {
 }
 
 //Traitement
-let result = 
+
 
 //Affichage résultat
-console.log(result);
+fileContent(arg1)
