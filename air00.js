@@ -37,7 +37,6 @@ function isNotNumber(args){
         if (args[i].match(nbRegex)) {
             counter ++
         } else {
-            
             res = true
         }        
     }

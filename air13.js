@@ -21,47 +21,71 @@ Bonus : trouvez le moyen d’utiliser du vert et du rouge pour rendre réussites
 */
 
 //Initialisation des variables
-let args = process.argv.slice(2)
 let arg1 = process.argv[2]
-let arg2 = process.argv[3]
 let res = ""
-const nbRegex = /^-?[0-9]\d*(\.\d+)?$/
 
 //f() utilisées
-//Number test
-function isNotNumber(args){
-    let counter = 0
-    for (let i = 0; i < args.length; i++) {
-        if (args[i].match(nbRegex)) {
-            counter ++
-        } else {
-            
-            res = true
-        }        
-    }
-    return counter
-}
-
-
 //Main f()
-function main(){
+function apreuveAirTU(){
+    const spawn = require('child_process').spawnSync;
+    // let finalRes = spawn('node',['air00.js', 'Bonjour les gars']).stdout.toString();
+    // let finalRes = spawn('node',['air01.js', "Crevette magique dans la mer des étoiles", "la"]).stdout.toString();
 
+    //remplir le tableau d'un test pour chaque épreuve ou un objet avec une key et plusieurs tests avec les res attendus par algo
+    const algoTestsSet = {
+        air01 : [["Bonjour les gars", "Bonjour \nles \ngars"],["test2","res2"]],
+        air02 : [["test3", "res3"],["test4","res4"]],
+    }
+    
+    //On va stocker tous les résultats dedans pour les afficher à la fin
+    let resulArr = []
+
+    console.log("\x1b[32m Rendu en couleur verte \x1b[0m");
+    console.log("\x1b[31m Rendu en couleur rouge \x1b[0m");
+
+    //Pour chaque élément de l'objet on traite un lago à la fois
+    Object.keys(algoTestsSet).forEach(algoNb => {
+        
+        //On récupère tous les tests lié à l'algo 
+        let tests = algoTestsSet[algoNb]
+        console.log(algoNb);
+
+        //Pour chacun de ses tests
+        tests.forEach(test => {
+            // console.log("test =" + test[0] + " et attendu : " + test[1]);
+            let verif = test[0]
+            let resAttendu = test[1]
+
+            //stocker le resultat du test
+            if (algoNb )
+            
+            //si ok return du vert sinon du rouge
+
+            //Stocker les return dans resulArr et passer au suivant
+        })
+
+
+    })
+
+    // for (let i = 0; i < 13; i++) {
+    //         //récupérer les tests dans l'objet 
+
+    //         //executer les TU et stocker les résultats dans un tableau avec (fail/success)
+
+    // }
+
+    return 0
 }
 
 //Gestion d'erreurs
-if (arg1 == undefined || arg2 == undefined) {
-    console.log("Merci d'entrer 2 arguments minimum valables");
+if (arg1 !== undefined) {
+    console.log("Aucun argument n'est accepté.");
     return
 }
 
-//Inverse de ma f() isNumber() de l'exo précedent 
-if (isNotNumber(args) > 0) {
-    console.log("Ce script ne peut prendre que des lettres/mots en arguments");
-    return
-}
 
 //Traitement
-let result = 
+let result = apreuveAirTU()
 
 //Affichage résultat
 console.log(result);
