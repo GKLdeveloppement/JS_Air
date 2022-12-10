@@ -33,15 +33,15 @@ function apreuveAirTU(){
 
     //remplir le tableau d'un test pour chaque épreuve ou un objet avec une key et plusieurs tests avec les res attendus par algo
     const algoTestsSet = {
-        air01 : [["Bonjour les gars", "Bonjour \nles \ngars"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa"]],
+        air00 : [["Bonjour les gars", "Bonjour \nles \ngars\n"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa\n"], ["234", "Ce script ne peut prendre que des lettres/mots en arguments\n"]],
         // air02 : [["test3", "res3"],["test4","res4"]],
     }
     
     //On va stocker tous les résultats dedans pour les afficher à la fin
     let resulArr = []
 
-    console.log("\x1b[32m Rendu en couleur verte \x1b[0m");
-    console.log("\x1b[31m Rendu en couleur rouge \x1b[0m");
+    // console.log("\x1b[32m Rendu en couleur verte \x1b[0m");
+    // console.log("\x1b[31m Rendu en couleur rouge \x1b[0m");
 
     //Pour chaque élément de l'objet on traite un lago à la fois
     Object.keys(algoTestsSet).forEach(algoName => {
@@ -59,10 +59,15 @@ function apreuveAirTU(){
             let resAttendu = test[1]
 
             //lancer le script et stocker le resultat
-            let resultatTU = spawn('node',[algoName+'.js', 'Bonjour les gars']).stdout.toString();
+            let resultatTU = spawn('node',[algoName+'.js', casTestU]).stdout.toString();
+            console.log(resultatTU);
 
-            
-            if (algoName){}
+            //Comparer le résultat avec ce qu'on attends normalement
+            if (resultatTU == resAttendu ){
+                console.log("\x1b[32m success \x1b[0m");
+            } else {
+                console.log("\x1b[31m failure \x1b[0m");
+            }
             
             //si ok return du vert sinon du rouge
 
