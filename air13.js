@@ -22,7 +22,12 @@ Bonus : trouvez le moyen d’utiliser du vert et du rouge pour rendre réussites
 
 //Initialisation des variables
 let arg1 = process.argv[2]
-let res = ""
+
+let sucessNb = 0
+let totalTestNb = 0
+let testNumber = 1
+const successGreenString = "\x1b[32m success \x1b[0m"
+const failureRedString = "\x1b[31m failure \x1b[0m"
 
 //f() utilisées
 //Main f()
@@ -33,56 +38,46 @@ function apreuveAirTU(){
 
     //remplir le tableau d'un test pour chaque épreuve ou un objet avec une key et plusieurs tests avec les res attendus par algo
     const algoTestsSet = {
-        air00 : [["Bonjour les gars", "Bonjour \nles \ngars\n"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa\n"], ["234", "Ce script ne peut prendre que des lettres/mots en arguments\n"]],
-        // air02 : [["test3", "res3"],["test4","res4"]],
+        // air00 : [["Bonjour les gars", "Bonjour \nles \ngars\n"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa\n"], ["234", "Ce script ne peut prendre que des lettres/mots en arguments\n"]],
+        air01 : [["je veux une belle pièce une", "je veux\nbelle pièce\n"],["'la crevette la crevette' 'la' 'la'","Merci d'entrer que 2 arguments valables\n"]],
     }
-    
-    //On va stocker tous les résultats dedans pour les afficher à la fin
-    let resulArr = []
 
-    // console.log("\x1b[32m Rendu en couleur verte \x1b[0m");
-    // console.log("\x1b[31m Rendu en couleur rouge \x1b[0m");
+    
+    
 
     //Pour chaque élément de l'objet on traite un lago à la fois
     Object.keys(algoTestsSet).forEach(algoName => {
         
         //On récupère tous les tests lié à l'algo 
         let tests = algoTestsSet[algoName]
-        console.log(algoName);
+
+        //On réinitialise le nombre de test par algo 
+        testNumber = 1
 
         //Pour chacun de ses tests
         tests.forEach(test => {
-            // console.log("test =" + test[0] + " et attendu : " + test[1]);
-            // console.log(algoTestsSet[key]);
-
+            
             let casTestU = test[0]
             let resAttendu = test[1]
 
             //lancer le script et stocker le resultat
             let resultatTU = spawn('node',[algoName+'.js', casTestU]).stdout.toString();
+            console.log(typeof casTestU);
             console.log(resultatTU);
 
             //Comparer le résultat avec ce qu'on attends normalement
             if (resultatTU == resAttendu ){
-                console.log("\x1b[32m success \x1b[0m");
+                //Si c'est bon, on retourne le "success"
+                console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ successGreenString);
             } else {
-                console.log("\x1b[31m failure \x1b[0m");
+                //Si c'est pas bon, on retourne le "failure"
+                console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ failureRedString);
             }
             
-            //si ok return du vert sinon du rouge
-
-            //Stocker les return dans resulArr et passer au suivant
+            //on incrémente pour connaître le numéro du test effectué sur le resultat total
+            testNumber ++
         })
-
-
     })
-
-    // for (let i = 0; i < 13; i++) {
-    //         //récupérer les tests dans l'objet 
-
-    //         //executer les TU et stocker les résultats dans un tableau avec (fail/success)
-
-    // }
 
     return 0
 }
