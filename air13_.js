@@ -204,20 +204,12 @@ const algoTestsSet = {
             output : "Ce script ne peut prendre que des chiffres en arguments\n"
         }
     },
-    // air14 : {
-    //     1 : {
-    //         input : ["air14.js", 1, 2 , 3 , 4 , 5, "+2"],
-    //         output : "3 4 5 6 7\n" 
-    //     },
-    //     2 : {
-    //         input : ["air14.js", 10, 11 , 12 , 20 , "-5"],
-    //         output : "5 6 7 15\n" 
-    //     },
-    //     3 : {
-    //         input : ["air14.js", "la", "la", "la"],
-    //         output : "Ce script ne peut prendre que des chiffres en arguments\n"
-    //     }
-    // }
+    air14 : {
+        1 : {
+            input : ["air14.js"],
+            output : "Encore une masterclass du joueur Franco-Turc, maintenant c'est tout droit\n"
+        }
+    }
 }
 
 
