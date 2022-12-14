@@ -86,6 +86,11 @@ function separator(aDecouper, separateur){
 }
 
 //Gestion d'erreurs
+if (arg2 == undefined) {
+    console.log("Il n'y a qu'un seul argument");
+    return
+}
+
 if (arg1 == undefined || arg2 == undefined || arg3 !== undefined) {
     console.log("Merci d'entrer que 2 arguments valables");
     return

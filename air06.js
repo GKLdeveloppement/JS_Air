@@ -50,18 +50,26 @@ function isNotNumber(args){
 
 //Main f()
 function controleContain(liste, comparant){
+    //On parcours la liste de mots fournis en args
     for (let i = 0; i < liste.length; i++) {
         let count = 0
+        //On définit chaque mot
         let argx = liste[i]
+
+        //On boucle sur toutes les lettres de ce mot
         for (let y = 0; y < argx.length; y++) {
-            if (argx[y] == comparant) {
+            let lettreComparee = argx[y].toLowerCase()
+            //Si elle est égale à ce qu'on cherche on incrémente la variable
+            if (lettreComparee == comparant) {
                 count++
             }
         }
-        if (count > 0) {
+        //Si le compte est supérieur à 0 on passe au mot suivant sinon on ajoute le mot à l'array
+        if (count < 1) {
             finalListe.push(argx)
         }
     }
+
     return finalListe.join(", ")
 
 }

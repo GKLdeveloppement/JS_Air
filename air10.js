@@ -12,6 +12,12 @@ Je danse le mia
 
 Afficher error et quitter le programme en cas de problèmes d’arguments ou de fichier inaccessible.
 
+
+---POUR TESTER---
+echo "je danse" > a.txt
+node air10.js a.txt
+
+
 */
 
 //Initialisation des variables

@@ -61,7 +61,7 @@ if (arg1 == undefined || arg2 == undefined) {
 
 //Inverse de ma f() isNumber() de l'exo précedent 
 if (isNotNumber(args) > 0) {
-    console.log("Ce script ne peut prendre que des chiffres en arguments");
+    console.log("Ce script ne peut prendre que du texte en arguments");
     return
 }
 

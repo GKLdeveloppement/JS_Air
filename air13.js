@@ -20,6 +20,10 @@ Bonus : trouvez le moyen d’utiliser du vert et du rouge pour rendre réussites
 
 */
 
+//Import de dépendances
+const spawn = require('child_process').spawnSync;
+
+
 //Initialisation des variables
 let arg1 = process.argv[2]
 
@@ -29,37 +33,48 @@ let testNumber = 1
 const successGreenString = "\x1b[32m success \x1b[0m"
 const failureRedString = "\x1b[31m failure \x1b[0m"
 
-//f() utilisées
-//Main f()
-function apreuveAirTU(){
-    const spawn = require('child_process').spawnSync;
-    // let finalRes = spawn('node',['air00.js', 'Bonjour les gars']).stdout.toString();
-    // let finalRes = spawn('node',['air01.js', "Crevette magique dans la mer des étoiles", "la"]).stdout.toString();
-
-    //remplir le tableau d'un test pour chaque épreuve ou un objet avec une key et plusieurs tests avec les res attendus par algo
-    const algoTestsSet = {
-        // air00 : [["Bonjour les gars", "Bonjour \nles \ngars\n"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa\n"], ["234", "Ce script ne peut prendre que des lettres/mots en arguments\n"]],
-        air01 : [[["je veux une belle pièce" +" une"]], "je veux\nbelle pièce\n"] 
-        //,["'la crevette la crevette' 'la' 'la'","Merci d'entrer que 2 arguments valables\n"]],
-    }
-
-    //Tout passer sous la forme d'un array pour les tests 
-    /*
-    Ou alors numéroter les test dans l'objet ( ex algotest = {
-        air01 : {
-            1 : [["je veux une belle pièce"] ["une"]], "je veux\nbelle pièce\n", 
-            2 : ["'la crevette la crevette' 'la' 'la'","Merci d'entrer que 2 arguments valables\n"]], 
-            etc etc
-            ou encore rentrer plus dans le détails avec un truc dans le genre :
-
-            1 : {
-                input : ["je veux une belle pièce"] ["une"]
-                output : "je veux\nbelle pièce\n" 
-            }
+//remplir le tableau d'un test pour chaque épreuve ou un objet avec une key et plusieurs tests avec les res attendus par algo
+const algoTestsSet = {
+    // air00 : [["Bonjour les gars", "Bonjour \nles \ngars\n"],["BonjourLesGars CommentCaVa","BonjourLesGars \nCommentCaVa\n"], ["234", "Ce script ne peut prendre que des lettres/mots en arguments\n"]],
+    // air01_ : [[["je veux une belle pièce" +" une"]], "je veux\nbelle pièce\n"],
+    air01 : {
+        1 : {
+            input : ["je veux une belle pièce"] ["une"], 
+            output : "je veux\nbelle pièce\n" 
+        },
+        2 : {
+            input : ["la crevette la crevette"] ["la"],
+            output : "Merci d'entrer que 2 arguments valables\n"
         }
+    }
+}
 
-    })
-    */
+
+
+//f() utilisées
+
+
+/**
+ * 
+ * @param {*} resultatTU 
+ * @param {*} resAttendu 
+ * @param {string} algoName 
+ * @param {int} testNumber 
+ * @param {int} totalTestNb 
+ */
+function verificationResult(resultatTU, resAttendu, algoName, testNumber, totalTestNb) {
+    if (resultatTU == resAttendu ){
+        //Si c'est bon, on retourne le "success"
+        console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ successGreenString);
+    } else {
+        //Si c'est pas bon, on retourne le "failure"
+        console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ failureRedString);
+    }
+}
+
+
+//Main f()
+function apreuveAirTU(algoTestsSet){
 
     //Pour chaque élément de l'objet on traite un lago à la fois
     Object.keys(algoTestsSet).forEach(algoName => {
@@ -70,36 +85,41 @@ function apreuveAirTU(){
         //On réinitialise le nombre de test par algo 
         testNumber = 1
 
+        //Pour chaque numéro de test contenu dans un algo
+        let testNbForAlgo = Object.keys(tests);
+        // for (let i = 0; i < testNbs.length; i++) {
+        //     let testNb = testNbs[i];
+        //     console.log(testNb + ': ' + tests[testNb]);
+        // }
+
         //Pour chacun de ses tests
-        tests.forEach(test => {
+        testNbForAlgo.forEach(test => {
 
-            let casTestU = test
-            // let resAttendu = "je veux\nbelle pièce\n" //test[1]
-            let fileName = algoName+'.js'
+            console.log("TU N° : " +test);
+            console.log("args : " + (test[1]));
+            console.log("resAttendu : " +test.output);
+            // let casTestU = test[0]
+            // let resAttendu = test[1]
 
-            //lancer le script et stocker le resultat
-            let resultatTU = spawn('node',[fileName, casTestU]).stdout.toString();
-            console.log(test);
-            // console.log(typeof casTestU);
-            // console.log("resattendu:" + resAttendu);
-            console.log("res: "+resultatTU);
+            // let fileName = algoName+'.js'
+            // totalTestNb = tests.length
 
-            //Comparer le résultat avec ce qu'on attends normalement
-            if (resultatTU == resAttendu ){
-                //Si c'est bon, on retourne le "success"
-                console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ successGreenString);
-            } else {
-                //Si c'est pas bon, on retourne le "failure"
-                console.log(algoName+" ("+ testNumber + "/" + tests.length +") :"+ failureRedString);
-            }
-            
-            //on incrémente pour connaître le numéro du test effectué sur le resultat total
-            testNumber ++
+            // //lancer le script et stocker le resultat
+            // let resultatTU = spawn('node',[fileName, casTestU]).stdout.toString();
+
+            // //Comparer le résultat avec ce qu'on attends normalement
+            // verificationResult(resultatTU, resAttendu, algoName, testNumber, totalTestNb)
+
+
+            // //on incrémente pour connaître le numéro du test effectué sur le resultat total
+            // testNumber ++
         })
     })
 
     return 0
 }
+
+
 
 //Gestion d'erreurs
 if (arg1 !== undefined) {
@@ -109,7 +129,7 @@ if (arg1 !== undefined) {
 
 
 //Traitement
-let result = apreuveAirTU()
+let result = apreuveAirTU(algoTestsSet)
 
 //Affichage résultat
 console.log(result);
